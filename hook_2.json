@@ -1,0 +1,229 @@
+{
+	"push": {
+		"changes": {
+			"truncated": false,
+			"new": {
+				"target": {
+					"hash": "9e36ff2525e05435141a4434a0784b106b6f639d",
+					"author": {
+						"user": {
+							"display_name": "jbellmann",
+							"links": {
+								"html": {
+									"href": "https://bitbucket.org/jbellmann/"
+								},
+								"self": {
+									"href": "https://api.bitbucket.org/2.0/users/jbellmann"
+								},
+								"avatar": {
+									"href": "https://bitbucket.org/account/jbellmann/avatar/32/"
+								}
+							},
+							"type": "user",
+							"uuid": "{5dd6baa4-cb27-4371-b1a8-963e1a66fa72}",
+							"username": "jbellmann"
+						},
+						"raw": "Joerg Bellmann <joerg.bellmann@googlemail.com>"
+					},
+					"links": {
+						"html": {
+							"href": "https://bitbucket.org/sigmalab/siggi-hook-server/commits/9e36ff2525e05435141a4434a0784b106b6f639d"
+						},
+						"self": {
+							"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commit/9e36ff2525e05435141a4434a0784b106b6f639d"
+						}
+					},
+					"message": "[maven-release-plugin] prepare for next development iteration\n",
+					"parents": {
+						"hash": "65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42",
+						"links": {
+							"html": {
+								"href": "https://bitbucket.org/sigmalab/siggi-hook-server/commits/65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+							},
+							"self": {
+								"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commit/65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+							}
+						},
+						"type": "commit"
+					}],
+					"date": "2015-11-27T12:27:45+00:00",
+					"type": "commit"
+				},
+				"links": {
+					"commits": {
+						"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commits/master"
+					},
+					"html": {
+						"href": "https://bitbucket.org/sigmalab/siggi-hook-server/branch/master"
+					},
+					"self": {
+						"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/refs/branches/master"
+					}
+				},
+				"type": "branch",
+				"name": "master"
+			},
+			"links": {
+				"commits": {
+					"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commits?include=9e36ff2525e05435141a4434a0784b106b6f639d&exclude=65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+				},
+				"html": {
+					"href": "https://bitbucket.org/sigmalab/siggi-hook-server/branches/compare/9e36ff2525e05435141a4434a0784b106b6f639d..65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+				},
+				"diff": {
+					"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/diff/9e36ff2525e05435141a4434a0784b106b6f639d..65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+				}
+			},
+			"closed": false,
+			"old": {
+				"target": {
+					"hash": "65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42",
+					"author": {
+						"user": {
+							"display_name": "jbellmann",
+							"links": {
+								"html": {
+									"href": "https://bitbucket.org/jbellmann/"
+								},
+								"self": {
+									"href": "https://api.bitbucket.org/2.0/users/jbellmann"
+								},
+								"avatar": {
+									"href": "https://bitbucket.org/account/jbellmann/avatar/32/"
+								}
+							},
+							"type": "user",
+							"uuid": "{5dd6baa4-cb27-4371-b1a8-963e1a66fa72}",
+							"username": "jbellmann"
+						},
+						"raw": "Joerg Bellmann <joerg.bellmann@googlemail.com>"
+					},
+					"links": {
+						"html": {
+							"href": "https://bitbucket.org/sigmalab/siggi-hook-server/commits/65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+						},
+						"self": {
+							"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commit/65c4ba6fbf214c8f9249c5029ce2207d3bd7ba42"
+						}
+					},
+					"message": "[maven-release-plugin] prepare release v0.9.2\n",
+					"parents": {
+						"hash": "a598fe46fdef6152b4b28f29ad2ec87d4f2226f6",
+						"links": {
+							"html": {
+								"href": "https://bitbucket.org/sigmalab/siggi-hook-server/commits/a598fe46fdef6152b4b28f29ad2ec87d4f2226f6"
+							},
+							"self": {
+								"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commit/a598fe46fdef6152b4b28f29ad2ec87d4f2226f6"
+							}
+						},
+						"type": "commit"
+					}],
+					"date": "2015-11-27T12:27:43+00:00",
+					"type": "commit"
+				},
+				"links": {
+					"commits": {
+						"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commits/master"
+					},
+					"html": {
+						"href": "https://bitbucket.org/sigmalab/siggi-hook-server/branch/master"
+					},
+					"self": {
+						"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/refs/branches/master"
+					}
+				},
+				"type": "branch",
+				"name": "master"
+			},
+			"forced": false,
+			"created": false,
+			"commits": {
+				"hash": "9e36ff2525e05435141a4434a0784b106b6f639d",
+				"author": {
+					"user": {
+						"display_name": "jbellmann",
+						"links": {
+							"html": {
+								"href": "https://bitbucket.org/jbellmann/"
+							},
+							"self": {
+								"href": "https://api.bitbucket.org/2.0/users/jbellmann"
+							},
+							"avatar": {
+								"href": "https://bitbucket.org/account/jbellmann/avatar/32/"
+							}
+						},
+						"type": "user",
+						"uuid": "{5dd6baa4-cb27-4371-b1a8-963e1a66fa72}",
+						"username": "jbellmann"
+					},
+					"raw": "Joerg Bellmann <joerg.bellmann@googlemail.com>"
+				},
+				"links": {
+					"html": {
+						"href": "https://bitbucket.org/sigmalab/siggi-hook-server/commits/9e36ff2525e05435141a4434a0784b106b6f639d"
+					},
+					"self": {
+						"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server/commit/9e36ff2525e05435141a4434a0784b106b6f639d"
+					}
+				},
+				"type": "commit",
+				"message": "[maven-release-plugin] prepare for next development iteration\n"
+			}
+		}
+	},
+	"repository": {
+		"owner": {
+			"display_name": "SIGMA Lab",
+			"links": {
+				"html": {
+					"href": "https://bitbucket.org/sigmalab/"
+				},
+				"self": {
+					"href": "https://api.bitbucket.org/2.0/teams/sigmalab"
+				},
+				"avatar": {
+					"href": "https://bitbucket.org/account/sigmalab/avatar/32/"
+				}
+			},
+			"type": "team",
+			"uuid": "{a4399bed-9206-433e-b1e4-3f975aa9d488}",
+			"username": "sigmalab"
+		},
+		"links": {
+			"html": {
+				"href": "https://bitbucket.org/sigmalab/siggi-hook-server"
+			},
+			"self": {
+				"href": "https://api.bitbucket.org/2.0/repositories/sigmalab/siggi-hook-server"
+			},
+			"avatar": {
+				"href": "https://bitbucket.org/sigmalab/siggi-hook-server/avatar/32/"
+			}
+		},
+		"full_name": "sigmalab/siggi-hook-server",
+		"name": "siggi-hook-server",
+		"scm": "git",
+		"type": "repository",
+		"uuid": "{38d30444-d9a2-4eb9-9b05-44c5fbe74745}",
+		"is_private": true
+	},
+	"actor": {
+		"display_name": "jbellmann",
+		"links": {
+			"html": {
+				"href": "https://bitbucket.org/jbellmann/"
+			},
+			"self": {
+				"href": "https://api.bitbucket.org/2.0/users/jbellmann"
+			},
+			"avatar": {
+				"href": "https://bitbucket.org/account/jbellmann/avatar/32/"
+			}
+		},
+		"type": "user",
+		"uuid": "{5dd6baa4-cb27-4371-b1a8-963e1a66fa72}",
+		"username": "jbellmann"
+	}
+}, provider=bitbucket, eventType=repo:push}

@@ -1,0 +1,2 @@
+logging:
+  config: classpath:/config/logback-320.xml

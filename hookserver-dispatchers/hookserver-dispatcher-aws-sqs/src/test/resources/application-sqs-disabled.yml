@@ -1,0 +1,7 @@
+debug: true
+
+siggi:
+  hookserver:
+    dispatcher:
+      sqs:
+        delete-queue-on-shutdown: false

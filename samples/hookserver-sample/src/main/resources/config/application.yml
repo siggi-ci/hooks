@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: siggi-hook-server
+
+  boot:
+    admin:
+      url: http://localhost:20140
+      username: jbellmann
+      password: Kj74ha?96
+      client:
+          serviceUrl: http://localhost:20290
+          managementUrl: http://localhost:30290
+
+management:
+    port: ${MANAGEMENT_PORT:7979}
+    security:
+        enabled: false
+
+server:
+  use-forward-headers: true
+
+security:
+  user:
+    name: hookie
+    password: K17l432Zk9

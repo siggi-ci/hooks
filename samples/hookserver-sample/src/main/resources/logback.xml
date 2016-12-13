@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+
+
+    <!-- SECURITY -->
+
+    <logger name="org.springframework.security" level="debug" additivity="false"/>
+
+    <!-- MAIN -->
+
+    <!-- Spring Auto Configuration Report -->
+    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework.boot.autoconfigure.logging" level="debug"/>
+    <logger name="org.siggici" level="info"/>
+
+    <!-- <logger name="org.apache.catalina.valves.RemoteIpValve" level="DEBUG" /> -->
+
+
+    <root level="warn">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

@@ -1,0 +1,315 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.siggi-ci</groupId>
+        <artifactId>hookserver-parent</artifactId>
+        <version>0.9.10-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <artifactId>hookserver-sample</artifactId>
+
+    <properties>
+        <docker-maven-plugin.version>0.18.1</docker-maven-plugin.version>
+        <docker-image-name>siggici/hookserver</docker-image-name>
+        <docker-image-from>java:8</docker-image-from>
+        <docker-image-maintainer>Joerg Bellmann</docker-image-maintainer>
+
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>hookserver-starter-redisson</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.zalando.stups</groupId>
+            <artifactId>junit-redis</artifactId>
+            <scope>test</scope>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.1.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
+                    <!-- important otherwise no properties in project -->
+                    <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                    <!-- <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename> -->
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>git.properties</include>
+                        </includes>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>maven-docker-run</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <argLine>-Ddebug</argLine>
+                            <!-- <excludes> <exclude>**/ExampleApplicationIT.java</exclude> 
+                                </excludes> <includes> <include>**/ConnectContainerIT.java</include> </includes> -->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.version}</version>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <dockerHost>http://localhost:2375</dockerHost>
+                            <images>
+                                <image>
+                                    <name>${docker-image-name}:${project.version}</name>
+                                    <build>
+                                        <from>${docker-image-from}</from>
+                                        <maintainer>${docker-image-maintainer}</maintainer>
+                                        <ports>
+                                            <port>8443</port>
+                                        </ports>
+                                        <entryPoint>
+                                            <!-- exec form for ENTRYPOINT -->
+                                            <exec>
+                                                <arg>java</arg>
+                                                <arg>-Ddebug</arg>
+                                                <arg>-Dspring.profiles.active=local-docker</arg>
+                                                <arg>-jar</arg>
+                                                <arg>/${project.build.finalName}.${project.packaging}</arg>
+                                            </exec>
+                                        </entryPoint>
+                                        <assembly>
+                                            <mode>dir</mode>
+                                            <basedir>/</basedir>
+                                            <!-- searches in ${basedir}/src/main/docker -->
+                                            <descriptor>hook-server-local-docker-assembly.xml</descriptor>
+                                        </assembly>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>10080:8080</port>
+                                        </ports>
+                                        <wait>
+                                            <http>
+                                                <url>http://localhost:10080/</url>
+                                                <method>GET</method>
+                                                <status>200</status>
+                                            </http>
+                                            <time>50000</time>
+                                        </wait>
+                                        <!-- <volumes> <bind> <volume>${project.basedir}/somepath/credentials:/etc/credentials</volume> 
+                                            <volume>${project.basedir}/keystore:/keystore</volume> </bind> </volumes> -->
+                                        <log>
+                                            <prefix>DOCKER_LOG</prefix>
+                                            <date>ISO8601</date>
+                                            <color>blue</color>
+                                        </log>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <!-- Connect start/stop to pre- and post-integration-test 
+                            phase, respectively if you want to start your docker containers during integration 
+                            tests -->
+                        <executions>
+                            <execution>
+                                <id>start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <!-- "build" should be used to create 
+                                        the images with the artefacts -->
+                                    <goal>build</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>maven-docker-build</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>scm-source.json</include>
+                        </includes>
+                        <excludes>
+                            <exclude>config/application-local-docker.yaml</exclude>
+                            <exclude>config/application-local.yaml</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>false</filtering>
+                        <excludes>
+                            <exclude>config/application-local-docker.yaml</exclude>
+                            <exclude>config/application-local.yaml</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>deployment</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>deployment.yaml</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/deployment</targetPath>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.version}</version>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <dockerHost>http://localhost:2375</dockerHost>
+                            <images>
+                                <image>
+                                    <name>${docker-image-name}:${project.version}</name>
+                                    <build>
+                                        <from>${docker-image-from}</from>
+                                        <maintainer>${docker-image-maintainer}</maintainer>
+                                        <ports>
+                                            <port>8080</port>
+                                        </ports>
+                                        <cmd>
+                                            <shell>java -jar
+                                                /${project.build.finalName}.${project.packaging}</shell>
+                                        </cmd>
+                                        <assembly>
+                                            <mode>dir</mode>
+                                            <basedir>/</basedir>
+                                            <!-- searches in ${basedir}/src/main/docker -->
+                                            <descriptor>hook-server-assembly.xml</descriptor>
+                                        </assembly>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <!-- Connect start/stop to pre- and post-integration-test 
+                            phase, respectively if you want to start your docker containers during integration 
+                            tests -->
+                        <executions>
+                            <execution>
+                                <id>build-image</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <!-- "build" should be used to create 
+                                        the images with the artefacts -->
+                                    <goal>build</goal>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

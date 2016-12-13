@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.siggi-ci</groupId>
+    <artifactId>hookserver-parent</artifactId>
+    <version>0.9.10-SNAPSHOT</version>
+  </parent>
+  <artifactId>hookserver-starters</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>hookserver-starter-aws-sqs</module>
+  	<module>hookserver-starter-rabbitmq</module>
+  	<module>hookserver-starter-redisson</module>
+  </modules>
+</project>
