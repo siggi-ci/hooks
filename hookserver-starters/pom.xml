@@ -11,5 +11,6 @@
   	<module>hookserver-starter-aws-sqs</module>
   	<module>hookserver-starter-rabbitmq</module>
   	<module>hookserver-starter-redisson</module>
+  	<module>hookserver-starter-base</module>
   </modules>
 </project>
