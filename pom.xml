@@ -33,6 +33,7 @@
         <module>hookserver-starters</module>
         <module>samples/hookserver-sample</module>
         <module>hookserver-accounts</module>
+        <module>hookserver-accounts-rest</module>
     </modules>
 
     <scm>
