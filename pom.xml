@@ -34,6 +34,7 @@
         <module>samples/hookserver-sample</module>
         <module>hookserver-accounts</module>
         <module>hookserver-accounts-rest</module>
+        <module>hookserver-accounts-rest-client</module>
     </modules>
 
     <scm>
