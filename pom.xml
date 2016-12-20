@@ -36,7 +36,7 @@
         <module>hookserver-accounts-rest</module>
         <module>hookserver-accounts-rest-client</module>
         <module>samples/datasources</module>
-        <module>samples/hookserver-sample</module>
+        <!-- <module>samples/hookserver-sample</module> -->
     </modules>
 
     <scm>
