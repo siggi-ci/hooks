@@ -32,10 +32,10 @@
         <module>hookserver-dispatchers</module>
         <module>hookserver-autoconfigure</module>
         <module>hookserver-starters</module>
-        <module>samples/hookserver-sample</module>
         <module>hookserver-accounts</module>
         <module>hookserver-accounts-rest</module>
         <module>hookserver-accounts-rest-client</module>
+        <!-- <module>samples/hookserver-sample</module> -->
     </modules>
 
     <scm>

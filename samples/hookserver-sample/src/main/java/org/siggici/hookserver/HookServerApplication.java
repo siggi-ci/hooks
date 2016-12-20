@@ -18,8 +18,11 @@ package org.siggici.hookserver;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
@@ -33,6 +36,11 @@ public class HookServerApplication {
     @Bean
     public HookEventListener hookEventListener() {
         return new HookEventListener();
+    }
+
+    @Bean
+    public DataSource buildDataSource() {
+        return DataSourceBuilder.create().build();
     }
 
     @Bean

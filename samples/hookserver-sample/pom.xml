@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.siggi-ci</groupId>
@@ -19,8 +20,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>hookserver-starter-redisson</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>hookserver-starter-accounts-rest</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -31,10 +46,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+         -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1212</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,6 +79,11 @@
             <artifactId>junit-redis</artifactId>
             <scope>test</scope>
             <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zalando.stups</groupId>
+            <artifactId>junit-postgres</artifactId>
+            <version>0.5.0</version>
         </dependency>
     </dependencies>
 
@@ -133,8 +161,6 @@
                         <version>2.19.1</version>
                         <configuration>
                             <argLine>-Ddebug</argLine>
-                            <!-- <excludes> <exclude>**/ExampleApplicationIT.java</exclude> 
-                                </excludes> <includes> <include>**/ConnectContainerIT.java</include> </includes> -->
                         </configuration>
                         <executions>
                             <execution>
@@ -151,8 +177,24 @@
                         <version>${docker-maven-plugin.version}</version>
                         <configuration>
                             <verbose>true</verbose>
-                            <dockerHost>http://localhost:2375</dockerHost>
                             <images>
+                                <image>
+                                    <alias>postgres</alias>
+                                    <name>postgres:9.6.0</name>
+                                    <run>
+                                        <ports>
+                                            <port>5432:5432</port>
+                                        </ports>
+                                        <env>
+                                            <POSTGRES_PASSWORD>postgres</POSTGRES_PASSWORD>
+                                        </env>
+                                        <wait>
+                                            <log>database system is
+                                                ready to accept
+                                                connections</log>
+                                        </wait>
+                                    </run>
+                                </image>
                                 <image>
                                     <name>${docker-image-name}:${project.version}</name>
                                     <build>
@@ -182,6 +224,12 @@
                                         <ports>
                                             <port>10080:8080</port>
                                         </ports>
+                                        <links>
+                                            <link>postgres:postgres</link>
+                                        </links>
+                                        <dependsOn>
+                                            <dependsOn>postgres</dependsOn>
+                                        </dependsOn>
                                         <wait>
                                             <http>
                                                 <url>http://localhost:10080/</url>
@@ -190,8 +238,6 @@
                                             </http>
                                             <time>50000</time>
                                         </wait>
-                                        <!-- <volumes> <bind> <volume>${project.basedir}/somepath/credentials:/etc/credentials</volume> 
-                                            <volume>${project.basedir}/keystore:/keystore</volume> </bind> </volumes> -->
                                         <log>
                                             <prefix>DOCKER_LOG</prefix>
                                             <date>ISO8601</date>
@@ -269,6 +315,23 @@
                             <verbose>true</verbose>
                             <dockerHost>http://localhost:2375</dockerHost>
                             <images>
+                                <image>
+                                    <alias>postgres</alias>
+                                    <name>postgres:9.6.0</name>
+                                    <run>
+                                        <ports>
+                                            <port>5432:5432</port>
+                                        </ports>
+                                        <env>
+                                            <POSTGRES_PASSWORD>postgres</POSTGRES_PASSWORD>
+                                        </env>
+                                        <wait>
+                                            <log>database system is
+                                                ready to accept
+                                                connections</log>
+                                        </wait>
+                                    </run>
+                                </image>
                                 <image>
                                     <name>${docker-image-name}:${project.version}</name>
                                     <build>

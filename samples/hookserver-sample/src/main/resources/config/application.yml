@@ -1,15 +1,14 @@
+debug: true
+
 spring:
   application:
     name: siggi-hook-server
 
-  boot:
-    admin:
-      url: http://localhost:20140
-      username: jbellmann
-      password: Kj74ha?96
-      client:
-          serviceUrl: http://localhost:20290
-          managementUrl: http://localhost:30290
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/test
+    type: com.zaxxer.hikari.HikariDataSource
 
 management:
     port: ${MANAGEMENT_PORT:7979}

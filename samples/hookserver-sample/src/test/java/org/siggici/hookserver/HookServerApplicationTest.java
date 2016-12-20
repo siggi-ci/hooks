@@ -15,6 +15,7 @@
  */
 package org.siggici.hookserver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -41,6 +42,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+import org.zalando.stups.junit.postgres.PostgreSqlRule;
 import org.zalando.stups.junit.redis.RedisServerRule;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -55,6 +57,10 @@ public class HookServerApplicationTest {
 
     @ClassRule
     public static RedisServerRule redisServer = new RedisServerRule.Builder().build();
+
+    @ClassRule
+    public static final PostgreSqlRule postgres = new PostgreSqlRule.Builder().withPort(5432)
+            .addScriptLocation(getScriptDirectory()).build();
 
     @LocalServerPort
     private int port;
@@ -122,4 +128,8 @@ public class HookServerApplicationTest {
         return value;
     }
 
+    private static String getScriptDirectory() {
+        return new File(HookServerApplicationTest.class.getResource("/scripts/00_create_schema.sql").getFile())
+                .getParent();
+    }
 }
