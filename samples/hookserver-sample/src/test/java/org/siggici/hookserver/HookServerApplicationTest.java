@@ -39,7 +39,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import org.zalando.stups.junit.postgres.PostgreSqlRule;
@@ -52,7 +51,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { HookServerApplication.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("it")
 public class HookServerApplicationTest {
 
     @ClassRule
