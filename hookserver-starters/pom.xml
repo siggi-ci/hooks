@@ -12,5 +12,6 @@
   	<module>hookserver-starter-rabbitmq</module>
   	<module>hookserver-starter-redisson</module>
   	<module>hookserver-starter-base</module>
+  	<module>hookserver-starter-accounts-rest</module>
   </modules>
 </project>
