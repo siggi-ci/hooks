@@ -1,4 +1,21 @@
 language: java
 
+sudo: true
+
+jdk: oraclejdk8
+
+env:
+    global:
+        - GIT_NAME="Joerg Bellmann"
+        - GIT_EMAIL=joerg.bellmann@googlemail.com
+        - APP_VERSION=0.11.0-$SIGGI_PROJECT_BUILD_NUMBER
+
+before_install:
+    - git config user.name "$GIT_NAME"
+    - git config user.email "$GIT_EMAIL"
+
 script:
-    - mvn install -nsu -Dmaven.test.redirectTestOutputToFile=true -B
+    - mvn versions:set -DnewVersion=$APP_VERSION --batch-mode
+    - mvn deploy -s .settings.xml --batch-mode
+    - mvn scm:checkin -DpushChanges=false -Dmessage="build-by-siggi" --batch-mode
+    - mvn -Dtag="$APP_VERSION" scm:tag --batch-mode
