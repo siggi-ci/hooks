@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.siggi-ci</groupId>
 		<artifactId>hookserver-dispatchers</artifactId>
-		<version>0.11.0-SNAPSHOT</version>
+		<version>0.11.0-15</version>
 	</parent>
 	<artifactId>hookserver-dispatcher-aws-sqs</artifactId>
 
