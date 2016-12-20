@@ -16,10 +16,14 @@
 package org.siggici.hookserver.rest;
 
 
+import static org.siggici.hookserver.rest.AccountResource.ACCOUNTS_ENDPOINT;
+import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
+
+import javax.validation.Valid;
+
 import org.siggici.hookserver.accounts.HookserverUserDetailsManager;
 import org.siggici.hookserver.rest.dto.Account;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.validation.Valid;
-
-import static org.siggici.hookserver.rest.AccountResource.ACCOUNTS_ENDPOINT;
 
 @RestController
 @RequestMapping(ACCOUNTS_ENDPOINT)
@@ -49,7 +49,7 @@ public class AccountResource {
                                               final UriComponentsBuilder uriComponentsBuilder) {
 
 
-        User newUser = new User(account.getUsername(), account.getPassword(), AuthorityUtils.createAuthorityList("HOOK"));
+        User newUser = new User(account.getUsername(), account.getPassword(), createAuthorityList("ROLE_HOOK"));
         userDetailManager.createUser(newUser);
 
         final UriComponents uriComponents = uriComponentsBuilder
