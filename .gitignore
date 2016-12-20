@@ -8,3 +8,6 @@ target
 .springBeans
 
 *.iml
+
+pom.xml.versionsBackup
+
