@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.siggi-ci</groupId>
         <artifactId>hookserver-dispatchers</artifactId>
-        <version>0.10.1-SNAPSHOT</version>
+        <version>0.11.0-9</version>
     </parent>
     <artifactId>hookserver-dispatcher-redisson</artifactId>
 
