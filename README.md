@@ -5,5 +5,3 @@
 ```
 mvn clean install
 ```
-
-trigger build
