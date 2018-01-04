@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.siggi-ci</groupId>
     <artifactId>hookserver-parent</artifactId>
-    <version>0.11.0-SNAPSHOT</version>
+    <version>0.12.0-SNAPSHOT</version>
   </parent>
   <artifactId>hookserver-dispatchers</artifactId>
   <packaging>pom</packaging>
@@ -11,5 +11,6 @@
   	<module>hookserver-dispatcher-aws-sqs</module>
   	<module>hookserver-dispatcher-rabbitmq</module>
   	<module>hookserver-dispatcher-redisson</module>
+  	<module>hookserver-dispatcher-spring-cloud-stream</module>
   </modules>
 </project>

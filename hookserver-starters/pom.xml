@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.siggi-ci</groupId>
     <artifactId>hookserver-parent</artifactId>
-    <version>0.11.0-SNAPSHOT</version>
+    <version>0.12.0-SNAPSHOT</version>
   </parent>
   <artifactId>hookserver-starters</artifactId>
   <packaging>pom</packaging>
@@ -13,5 +13,7 @@
   	<module>hookserver-starter-redisson</module>
   	<module>hookserver-starter-base</module>
   	<module>hookserver-starter-accounts-rest</module>
+  	<module>hookserver-starter-spring-cloud-stream-rabbitmq</module>
+  	<module>hookserver-starter-spring-cloud-stream-kafka</module>
   </modules>
 </project>
