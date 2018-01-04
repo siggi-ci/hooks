@@ -15,6 +15,8 @@
  */
 package org.siggici.hookserver.autoconfigure.endpoint;
 
+import static java.util.Collections.emptyList;
+
 import java.util.List;
 
 import org.siggici.hookserver.endpoint.HookServerEndpoint;
@@ -38,7 +40,7 @@ public class HookServerEndpointAutoConfiguration {
     protected static class HookServerEndpointConfiguration {
 
         @Autowired(required = false)
-        private List<ScmPayloadExtractor> extractors;
+        private List<ScmPayloadExtractor> extractors = emptyList();
 
         @Bean
         public HookServerEndpoint hookServerEndpoint() {

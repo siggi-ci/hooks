@@ -43,9 +43,10 @@ public class HookserverAccountsClientTest {
 
     @Test
     public void create() {
-        mockServer.expect(requestTo("http://server.org/accounts")).andExpect(method(HttpMethod.POST)).andRespond(
-                withCreatedEntity(URI.create("http://server.org/accounts/08da1346-a8ca-44d5-a078-f4586da2cb5e"))
-                .contentType(MediaType.APPLICATION_JSON));
+        mockServer.expect(requestTo("http://server.org/accounts"))
+                    .andExpect(method(HttpMethod.POST))
+                    .andRespond(withCreatedEntity(URI.create("http://server.org/accounts/08da1346-a8ca-44d5-a078-f4586da2cb5e"))
+                    .contentType(MediaType.APPLICATION_JSON));
 
         client.createAccount("klaus", "meier");
     }
