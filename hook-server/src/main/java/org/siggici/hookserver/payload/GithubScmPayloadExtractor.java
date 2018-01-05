@@ -15,8 +15,8 @@
  */
 package org.siggici.hookserver.payload;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.springframework.util.StringUtils.hasText;
+
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -24,9 +24,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * 
@@ -40,19 +41,17 @@ class GithubScmPayloadExtractor implements ScmPayloadExtractor {
 
     private final Logger log = LoggerFactory.getLogger(GithubScmPayloadExtractor.class);
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
-    public Optional<Map<String, String>> extractPayload(MultiValueMap<String, String> headers,
-            Map<String, Object> request) {
+    public Optional<JsonNode> extractPayload(MultiValueMap<String, String> headers,
+            JsonNode request) {
         String eventType = headers.getFirst("X-Github-Event");
-        if (StringUtils.hasText(eventType)) {
+        if (hasText(eventType)) {
             try {
-                Map<String, String> result = new HashMap<String, String>();
-                result.put("eventType", eventType);
-                result.put("payload", objectMapper.writeValueAsString(request));
-                result.put("providerType", GITHUB);
-                return Optional.of(result);
+                ObjectNode node = JsonNodeFactory.instance.objectNode();
+                node.put("eventType", eventType);
+                node.put("providerType", GITHUB);
+                node.set("payload", request);
+                return Optional.of(node);
             } catch (Exception e) {
                 log.warn("Could not handle webhook-request", e);
             }

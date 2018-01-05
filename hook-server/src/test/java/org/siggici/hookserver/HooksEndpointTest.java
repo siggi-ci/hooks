@@ -16,7 +16,6 @@
 package org.siggici.hookserver;
 
 import java.util.Collections;
-import java.util.HashMap;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -27,6 +26,8 @@ import org.siggici.hookserver.payload.ScmPayloadExtractor;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 public class HooksEndpointTest {
 
@@ -44,7 +45,7 @@ public class HooksEndpointTest {
     public void testEndpoint() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Github-Event", "push");
-        ResponseEntity<String> response = endpoint.hooks(headers, new HashMap<String, Object>());
+        ResponseEntity<String> response = endpoint.hooks(headers, JsonNodeFactory.instance.objectNode());
         Assertions.assertThat(response.getBody()).isEqualTo("OK");
     }
 

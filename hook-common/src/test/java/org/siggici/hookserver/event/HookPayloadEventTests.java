@@ -17,23 +17,21 @@ package org.siggici.hookserver.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.siggici.hookserver.event.HookPayloadEvent;
+
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class HookPayloadEventTests {
 
     private static final String SECOND_KEY = "second";
     private static final String FIRST_KEY = "first";
-    private static final String FAILURE = "FAILURE";
-    private Map<String, String> payload;
+    private ObjectNode payload;
 
     @Before
     public void setUp() {
-        payload = new HashMap<>();
+        payload = JsonNodeFactory.instance.objectNode();
         payload.put(FIRST_KEY, "FIRST");
         payload.put(SECOND_KEY, "SECOND");
     }
@@ -41,9 +39,7 @@ public class HookPayloadEventTests {
     @Test
     public void updateEventsPayloadShouldNotBePossible() {
         HookPayloadEvent event = new HookPayloadEvent(this, payload);
-        event.getPayload().put(FIRST_KEY, FAILURE);
-        assertThat(event.getPayload()).doesNotContainEntry(FIRST_KEY, FAILURE);
-        assertThat(event.getPayload()).containsEntry(FIRST_KEY, "FIRST");
+        assertThat(event.getPayload().get(FIRST_KEY).asText()).isEqualTo("FIRST");
     }
 
 }
