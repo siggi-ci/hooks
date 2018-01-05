@@ -19,6 +19,8 @@ import java.io.IOException;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -26,6 +28,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MultiValueMapTest {
+
+    private final Logger logger = LoggerFactory.getLogger(MultiValueMapTest.class);
 
     private final TypeReference<LinkedMultiValueMap<String, String>> ref = new TypeReference<LinkedMultiValueMap<String, String>>() {
     };
@@ -37,7 +41,7 @@ public class MultiValueMapTest {
         mvm.add("two", "valueTwo");
         ObjectMapper objecMapper = new ObjectMapper();
         String s = objecMapper.writeValueAsString(mvm);
-        System.out.println(s);
+        logger.info(s);
         // http://stackoverflow.com/questions/29604319/jackson-json-deserialize-commons-multimap
         // objecMapper.readValue(s, MultiValueMap.class);
         // Object o = objecMapper.readValue(s, ref);
