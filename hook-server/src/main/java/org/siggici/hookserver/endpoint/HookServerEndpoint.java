@@ -18,8 +18,6 @@ package org.siggici.hookserver.endpoint;
 import static java.lang.String.valueOf;
 import static java.lang.System.currentTimeMillis;
 
-import java.util.Map;
-
 import org.siggici.hookserver.event.HookPayloadEvent;
 import org.siggici.hookserver.payload.ScmPayloadExtractor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * Endpoint for Scm-Provider Webhooks.
@@ -55,18 +56,18 @@ public class HookServerEndpoint implements ApplicationEventPublisherAware {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> hooks(@RequestHeader HttpHeaders headers, @RequestBody Map<String, Object> request) {
+    public ResponseEntity<String> hooks(@RequestHeader HttpHeaders headers, @RequestBody JsonNode request) {
         extractor.extractPayload(headers, request).ifPresent(payload -> enrichAndPublish(payload));
         return ResponseEntity.ok(OK);
     }
 
-    protected void enrichAndPublish(Map<String, String> payload) {
-        Map<String, String> result = addMetadata(payload);
+    protected void enrichAndPublish(JsonNode payload) {
+        JsonNode result = addMetadata(payload);
         eventPublisher.publishEvent(new HookPayloadEvent(this, result));
     }
 
-    protected Map<String, String> addMetadata(Map<String, String> payload) {
-        payload.put(CREATED, valueOf(currentTimeMillis()));
+    protected JsonNode addMetadata(JsonNode payload) {
+        ((ObjectNode)payload).put(CREATED, valueOf(currentTimeMillis()));
         return payload;
     }
 

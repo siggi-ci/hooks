@@ -15,10 +15,11 @@
  */
 package org.siggici.hookserver.payload;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.util.MultiValueMap;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Extracts they 'payload','provider' and 'eventType'.
@@ -28,6 +29,6 @@ import org.springframework.util.MultiValueMap;
  */
 public interface ScmPayloadExtractor {
 
-    Optional<Map<String, String>> extractPayload(MultiValueMap<String, String> headers, Map<String, Object> request);
+    Optional<JsonNode> extractPayload(MultiValueMap<String, String> headers, JsonNode request);
 
 }

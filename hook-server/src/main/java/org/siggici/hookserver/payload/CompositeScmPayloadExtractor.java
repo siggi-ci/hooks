@@ -15,15 +15,16 @@
  */
 package org.siggici.hookserver.payload;
 
+import static java.util.Optional.empty;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.util.MultiValueMap;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * 
@@ -31,8 +32,6 @@ import org.springframework.util.MultiValueMap;
  *
  */
 public class CompositeScmPayloadExtractor implements ScmPayloadExtractor {
-
-    private final Logger logger = LoggerFactory.getLogger(CompositeScmPayloadExtractor.class);
 
     private final List<ScmPayloadExtractor> extractors;
 
@@ -45,16 +44,13 @@ public class CompositeScmPayloadExtractor implements ScmPayloadExtractor {
     }
 
     @Override
-    public Optional<Map<String, String>> extractPayload(MultiValueMap<String, String> headers,
-            Map<String, Object> request) {
-        for (ScmPayloadExtractor extractor : extractors) {
-            Optional<Map<String, String>> result = extractor.extractPayload(headers, request);
-            if (result.isPresent()) {
-                return result;
-            }
-        }
-        logger.warn("Could not extract playload from : {}", request.toString());
-        return Optional.empty();
+    public Optional<JsonNode> extractPayload(MultiValueMap<String, String> headers,
+            JsonNode request) {
+        return extractors.stream()
+                            .map(ex -> ex.extractPayload(headers, request))
+                            .filter(p -> p.isPresent())
+                            .findFirst()
+                            .orElse(empty());
     }
 
 }

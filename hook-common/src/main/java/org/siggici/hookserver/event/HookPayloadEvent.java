@@ -15,10 +15,9 @@
  */
 package org.siggici.hookserver.event;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.context.ApplicationEvent;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * 
@@ -29,15 +28,15 @@ public class HookPayloadEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = 1L;
 
-    private Map<String, String> payload;
+    private JsonNode payload;
 
-    public HookPayloadEvent(Object source, Map<String, String> payload) {
+    public HookPayloadEvent(Object source, JsonNode payload) {
         super(source);
         this.payload = payload;
     }
 
-    public Map<String, String> getPayload() {
-        return new HashMap<>(payload);
+    public JsonNode getPayload() {
+        return payload;
     }
 
 }
