@@ -24,6 +24,9 @@
             <artifactId>hookserver-dispatcher-spring-cloud-stream</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- TODO add spring-cloud-stream-rabbitmq -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
     </dependencies>
 </project>
