@@ -7,7 +7,7 @@
         <relativePath />
     </parent>
     <artifactId>hookserver-parent</artifactId>
-    <version>0.12.0</version>
+    <version>0.12.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -60,7 +60,7 @@
         <url>https://github.com/siggi-ci/hooks</url>
         <connection>scm:git:git@github.com:siggi-ci/hooks.git</connection>
         <developerConnection>scm:git:git@github.com:siggi-ci/hooks.git</developerConnection>
-      <tag>hookserver-parent-0.12.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
